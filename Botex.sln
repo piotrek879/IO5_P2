@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Botex", "Botex.csproj", "{D9BE0A8B-9A16-451C-B919-5E4471974AFD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D9BE0A8B-9A16-451C-B919-5E4471974AFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9BE0A8B-9A16-451C-B919-5E4471974AFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9BE0A8B-9A16-451C-B919-5E4471974AFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9BE0A8B-9A16-451C-B919-5E4471974AFD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E010726-F3D4-4A5C-851A-E512912BEAEC}
+	EndGlobalSection
+EndGlobal

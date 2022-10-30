@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using Botex.scripts;
 namespace Botex.View
 {
     /// <summary>
@@ -22,6 +22,12 @@ namespace Botex.View
         public MainBotexView()
         {
             InitializeComponent();
+            RichTextBoxDataChanging.changeTextRichAnswerBox("Witam w Botex",botexAnswerBox);
+            RichTextBoxDataChanging.changeTextRichAnswerBoxWithoutClear("Wprowadz dane autoryzacyjne", botexAnswerBox);
         }
+
+       
+
+      
     }
 }

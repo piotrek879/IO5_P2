@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using Botex.scripts;
 namespace Botex.View
 {
     /// <summary>
@@ -22,6 +23,14 @@ namespace Botex.View
         public MainBotexView()
         {
             InitializeComponent();
+            RichTextBoxDataChanging.changeTextRichAnswerBox("Witam w Botex",botexAnswerBox);
+            RichTextBoxDataChanging.changeTextRichAnswerBoxWithoutClear("Wprowadz dane autoryzacyjne", botexAnswerBox);
+        }
+
+        private void submitButton_Click(object sender, RoutedEventArgs e)
+        {
+            InputAnalize.analizeInput(botexInputBox.Text.ToString(), botexAnswerBox);
+            Trace.WriteLine(botexInputBox.Text);
         }
     }
 }

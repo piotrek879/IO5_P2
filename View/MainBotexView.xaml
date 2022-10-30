@@ -16,7 +16,7 @@
         </RichTextBox>
         <TextBox x:Name="botexInputBox" HorizontalAlignment="Center" Margin="0,317,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="464" Height="91"/>
         <Button x:Name="speechToTextBtn" Content="Polecenie Głosowe" HorizontalAlignment="Left" Margin="20,343,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="submitButton" Content="Zatwierdź" HorizontalAlignment="Left" Margin="680,388,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="submitButton" Content="Zatwierdź" HorizontalAlignment="Left" Margin="680,388,0,0" VerticalAlignment="Top" Click="submitButton_Click"/>
 
     </Grid>
 </Window>

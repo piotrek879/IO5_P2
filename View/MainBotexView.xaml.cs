@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,8 +27,10 @@ namespace Botex.View
             RichTextBoxDataChanging.changeTextRichAnswerBoxWithoutClear("Wprowadz dane autoryzacyjne", botexAnswerBox);
         }
 
-       
-
-      
+        private void submitButton_Click(object sender, RoutedEventArgs e)
+        {
+            InputAnalize.analizeInput(botexInputBox.Text.ToString(), botexAnswerBox);
+            Trace.WriteLine(botexInputBox.Text);
+        }
     }
 }

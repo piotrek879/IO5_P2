@@ -41,7 +41,7 @@ namespace Botex.scripts
                 RichTextBoxDataChanging.changeTextRichAnswerBox(input, botexAnswerBox);
 
             }
-            if (input.ToUpper().Split(' ').Contains("POMOC"))
+            if (input.ToUpper().Split(' ').Contains("POMOC") && input.ToUpper().Split(' ').Contains("'POMOC'"))
             {
                 RichTextBoxDataChanging.changeTextRichAnswerBox(helpString, botexAnswerBox);
                 RichTextBoxDataChanging.changeTextRichAnswerBoxWithoutClear(avOptionsString,botexAnswerBox);

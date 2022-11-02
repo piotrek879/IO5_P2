@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Botex.database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,9 @@ namespace Botex
         {
             InitializeComponent();
             // Okno defaultowe przerzuca do View (nie pisać tu nic)
+            CreateSqliteDb createSqliteDb = new CreateSqliteDb();
+            
+
             Botex.View.MainBotexView window = new Botex.View.MainBotexView();
             window.Show();
         }

@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using Botex.scripts;
 using InstagramApiSharp.API.Builder;
 using InstagramApiSharp.Logger;
+using InstagramApiSharp;
 
 namespace Botex.View
 {
@@ -52,6 +53,15 @@ namespace Botex.View
                 MessageBox.Show("False");
             }
 
+        }
+
+        private async void followersButton_Click(object sender, EventArgs e)
+        {
+            var fs = await IgApiClass.api.UserProcessor.GetCurrentUserFollowersAsync(PaginationParameters.MaxPagesToLoad(1));
+            foreach(var item in fs.Value)
+            {
+                
+            }
         }
     }
 }

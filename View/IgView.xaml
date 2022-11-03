@@ -9,12 +9,14 @@
     <Grid>
 
         <TextBox x:Name="loginInputBox" HorizontalAlignment="Left" Margin="105,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="39"/>
-        <Button x:Name="loginButton" Content="Zaloguj" HorizontalAlignment="Left" Margin="147,0,0,0" VerticalAlignment="Center" Height="33" Width="129"/>
-        
+        <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Left" Margin="147,0,0,0" VerticalAlignment="Center" Height="33" Width="129"/>
+
         <TextBlock HorizontalAlignment="Center" Height="473" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" Width="844"/>
         <TextBox x:Name="passwordInputBox" HorizontalAlignment="Left" Margin="105,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="39"/>
         <Label x:Name="LoginLabel" Content="Login" HorizontalAlignment="Left" Margin="27,44,0,0" VerticalAlignment="Top" FontSize="14" Width="57"/>
         <Label x:Name="PasswordLabel" Content="Password" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" FontSize="14" Width="74"/>
+        <DataGrid HorizontalAlignment="Left" Height="139" Margin="423,256,0,0" VerticalAlignment="Top" Width="342" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <Button x:Name="followersButton" Content="Followers" HorizontalAlignment="Left" Height="35" Margin="517,0,0,0" VerticalAlignment="Center" Width="166"/>
 
     </Grid>
 </Window>

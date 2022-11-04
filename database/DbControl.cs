@@ -37,7 +37,7 @@ namespace Botex.database
         #endregion
 
         #region DBOperations
-        private void insertDataToDB(string sqlQueryCommand)
+        public void insertDataToDB(string sqlQueryCommand)
         {
             SQLiteConnection sqlite_conn = CreateConnection();
             SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand();
@@ -49,11 +49,12 @@ namespace Botex.database
             CloseConn(sqlite_conn);
         }
 
-        private void ReadDataFromDB(string sqlQueryCommand, RichTextBox richTextBoxTarget)
+        public void ReadDataFromDB(string sqlQueryCommand, RichTextBox richTextBoxTarget)
         {
             SQLiteConnection sqlite_conn = CreateConnection();
             SQLiteDataReader sqlite_datareader;
             SQLiteCommand sqlite_cmd;
+
             sqlite_cmd = sqlite_conn.CreateCommand();
             sqlite_cmd.CommandText = sqlQueryCommand;
 

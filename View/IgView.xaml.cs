@@ -32,6 +32,8 @@ namespace Botex.View
         {
             InitializeComponent();
         }
+
+        //przycisk logowania
         private async void loginButton_Click(object sender, EventArgs e)
         {
             user = new UserSessionData();
@@ -55,13 +57,35 @@ namespace Botex.View
 
         }
 
+        //przycisk followers
         private async void followersButton_Click(object sender, EventArgs e)
         {
             var fs = await IgApiClass.api.UserProcessor.GetCurrentUserFollowersAsync(PaginationParameters.MaxPagesToLoad(1));
             foreach(var item in fs.Value)
             {
-                
+                DataGrid.Items.Add(item.FullName, item.UserName);
             }
+        }
+
+        private void DataGrid_CellContentClick(object sender, EventArgs e)
+        {
+
+        }
+
+        //przycisk follow
+        private async void followButton_Click(object sender, EventArgs e)
+        {
+            var user = await IgApiClass.api.UserProcessor.GetUserAsync(followInputBox.Text);
+            var f = await IgApiClass.api.UserProcessor.FollowUserAsync(user.Value.Pk);
+            if (f.Succeeded)
+            {
+                MessageBox.Show("User follow");
+            }
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

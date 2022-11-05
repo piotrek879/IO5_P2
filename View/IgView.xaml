@@ -15,7 +15,7 @@
         <TextBox x:Name="passwordInputBox" HorizontalAlignment="Left" Margin="105,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="39"/>
         <Label x:Name="LoginLabel" Content="Login" HorizontalAlignment="Left" Margin="27,44,0,0" VerticalAlignment="Top" FontSize="14" Width="57"/>
         <Label x:Name="PasswordLabel" Content="Password" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" FontSize="14" Width="74"/>
-        <DataGrid Grid.Column ="2" HorizontalAlignment="Left" Height="139" Margin="531,258,0,0" VerticalAlignment="Top" Width="138" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns="False">
+        <DataGrid Grid.Column ="2" HorizontalAlignment="Left" Height="139" Margin="531,258,0,0" VerticalAlignment="Top" Width="138" Background="LightGray" RowBackground="LightYellow" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="FullName" x:Name="FullName"/>
                 <DataGridTextColumn Header="UserName" x:Name="UserName"/>

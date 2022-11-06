@@ -20,6 +20,10 @@ namespace Botex.ViewModel
 
         }
 
-        static void 
+        static void InsertMsgToDb(string msg, string title)
+        {
+            
+        }
+
     }
 }

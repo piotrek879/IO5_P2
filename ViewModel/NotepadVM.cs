@@ -11,18 +11,27 @@ namespace Botex.ViewModel
 {
     internal class NotepadVM
     {
-        private  readonly DbControl dbControl = new DbControl();
+
         private static readonly string welcomeMsg = "Uruchomiono notatnik\nWpisz 'wczytaj' aby wczytac notatke\nwpisz 'stworz' aby stworzyc notatke";
 
-        static void PrintDefaultMsg(RichTextBox targetRichTextBox)
+        public NotepadVM(RichTextBox targetRichTextBox)
         {
             RichTextBoxDataChanging.changeTextRichAnswerBox(welcomeMsg, targetRichTextBox);
 
         }
 
-        static void InsertMsgToDb(string msg, string title)
+        
+        /*
+        static void PrintDefaultMsg(RichTextBox targetRichTextBox)
         {
-            
+            RichTextBoxDataChanging.changeTextRichAnswerBox(welcomeMsg, targetRichTextBox);
+
+        }
+        */
+
+        public void InsertMsgToDb(string msg, string title, int userId)
+        {
+            ToDbControl.ToDbNotepad(msg, title, userId);
         }
 
     }

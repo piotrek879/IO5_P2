@@ -20,7 +20,8 @@ namespace Botex.View
     /// </summary>
     public partial class MainBotexView : Window
     {
-        public bool analized = false;
+        public static bool analized = false;
+        public InputAnalize inputanalize = new InputAnalize(botexAnswerBox);
 
         public MainBotexView()
         {

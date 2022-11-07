@@ -26,8 +26,8 @@ namespace Botex.View
     /// sesja uzytkownika
     public partial class IgView : Window
     {
-        public string FullName { get; set; }
-        public string UserName { get; set; }
+        public string fullName { get; set; }
+        public string userName { get; set; }
 
 
         private static UserSessionData user;
@@ -59,15 +59,16 @@ namespace Botex.View
                 MessageBox.Show("False");
             }
 
-        } 
+        }
 
         //przycisk followers
         private async void followersButton_Click(object sender, EventArgs e)
         {
             var fs = await IgApiClass.api.UserProcessor.GetCurrentUserFollowersAsync(PaginationParameters.MaxPagesToLoad(1));
-            foreach(var item in fs.Value)
+            foreach (var item in fs.Value)
             {
-                private List<IgView> LoadCollectionData()
+                myData.Items.Add(item);
+                /*List<IgView> LoadCollectionData()
                 {
                     List<IgView> igview = new List<IgView>();
                     igview.Add(new IgView()
@@ -75,11 +76,13 @@ namespace Botex.View
                         FullName = item.FullName,
                         UserName = item.UserName
                     });
-                    return igview;
+                    return igview; 
+                */
                 }
-        }
+            }
+        
 
-            private void DataGrid_CellContentClick(object sender, EventArgs e)
+            private  void DataGrid_CellContentClick(object sender, EventArgs e)
         {
 
         }

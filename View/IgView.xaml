@@ -8,11 +8,12 @@
         Title="IgView" Height="450" Width="800">
     <Grid>
 
-        <TextBox x:Name="loginInputBox" HorizontalAlignment="Left" Margin="105,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="39"/>
-        <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Left" Margin="147,0,0,0" VerticalAlignment="Center" Height="33" Width="129"/>
-
         <TextBlock HorizontalAlignment="Center" Height="473" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center" Width="844"/>
-        <TextBox x:Name="passwordInputBox" HorizontalAlignment="Left" Margin="105,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="39"/>
+        <TextBox x:Name="loginInputBox" HorizontalAlignment="Left" Margin="105,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="39"/>
+        <Button x:Name="loginButton" Content="Login" Click="loginButton_Click" HorizontalAlignment="Left" Margin="147,0,0,0" VerticalAlignment="Center" Height="33" Width="129"/>
+
+       
+        <PasswordBox x:Name="passwordInputBox" HorizontalAlignment="Left" Margin="105,127,0,0"  VerticalAlignment="Top" Width="219" Height="39" PasswordChar="*"/>
         <Label x:Name="LoginLabel" Content="Login" HorizontalAlignment="Left" Margin="27,44,0,0" VerticalAlignment="Top" FontSize="14" Width="57"/>
         <Label x:Name="PasswordLabel" Content="Password" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" FontSize="14" Width="74"/>
         <DataGrid x:Name="myData" Grid.Column ="2" HorizontalAlignment="Left" Height="139" Margin="531,258,0,0" VerticalAlignment="Top" Width="138" Background="LightGray" RowBackground="LightYellow" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns="False">
@@ -21,8 +22,8 @@
                 <DataGridTextColumn Header="UserName" x:Name="UserName"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="followersButton" Content="Followers" HorizontalAlignment="Left" Height="35" Margin="517,0,0,0" VerticalAlignment="Center" Width="166"/>
-        <Button x:Name="followButton" Content="Follow" HorizontalAlignment="Left" Margin="543,107,0,0" VerticalAlignment="Top" Height="31" Width="140" RenderTransformOrigin="0.514,-0.605"/>
+        <Button x:Name="followersButton" Content="Followers" Click="followersButton_Click" HorizontalAlignment="Left" Height="35" Margin="517,0,0,0" VerticalAlignment="Center" Width="166"/>
+        <Button x:Name="followButton" Content="Follow" Click="followButton_Click" HorizontalAlignment="Left" Margin="543,107,0,0" VerticalAlignment="Top" Height="31" Width="140" RenderTransformOrigin="0.514,-0.605"/>
         <TextBox x:Name="followInputBox" HorizontalAlignment="Left" Height="21" Margin="521,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="184"/>
         <Label x:Name="UserNameLabel" Content="UserName" HorizontalAlignment="Left" Height="28" Margin="438,60,0,0" VerticalAlignment="Top" Width="78"/>
 

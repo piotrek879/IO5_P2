@@ -26,6 +26,8 @@ namespace Botex
             // Okno defaultowe przerzuca do View (nie pisać tu nic)
             Botex.View.MainBotexView window = new Botex.View.MainBotexView();
             window.Show();
+            Botex.View.IgView window1 = new Botex.View.IgView();
+            window1.Show();
         }
         
         

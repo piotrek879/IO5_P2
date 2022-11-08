@@ -20,6 +20,7 @@ using Botex.scripts;
 using InstagramApiSharp.API.Builder;
 using InstagramApiSharp.Logger;
 using InstagramApiSharp;
+using System.Diagnostics;
 
 namespace Botex.View
 {
@@ -40,15 +41,19 @@ namespace Botex.View
         //przycisk logowania
         private async void loginButton_Click(object sender, EventArgs e)
         {
+          Trace.WriteLine("spr");
             user = new UserSessionData();
             user.UserName = loginInputBox.Text;
-            user.Password = passwordInputBox.Text;
+            user.Password = passwordInputBox.Password.ToString();
             IgApiClass.api = InstaApiBuilder.CreateBuilder()
                 .SetUser(user)
                 .UseLogger(new DebugLogger(LogLevel.All))
                 .SetRequestDelay(RequestDelay.FromSeconds(0, 1))
                 .Build();
+            await IgApiClass.api.SendRequestsBeforeLoginAsync();
+            await Task.Delay(5000);
             var IsLog = await IgApiClass.api.LoginAsync();
+            Trace.WriteLine("Loging");
             if (IsLog.Succeeded)
             {
                 MessageBox.Show("True");

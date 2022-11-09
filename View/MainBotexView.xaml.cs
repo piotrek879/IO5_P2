@@ -24,10 +24,15 @@ namespace Botex.View
     /// </summary>
     public partial class MainBotexView : Window
     {
+
+        public static bool analized = false;
+        public InputAnalize inputanalize = new InputAnalize(botexAnswerBox);
+
         SpeechSynthesizer ss = new SpeechSynthesizer();
         PromptBuilder pb = new PromptBuilder();
         SpeechRecognitionEngine sre = new SpeechRecognitionEngine();
         Choices clist = new Choices();
+
 
         public MainBotexView()
         {
@@ -41,7 +46,15 @@ namespace Botex.View
 
         private void submitButton_Click(object sender, RoutedEventArgs e)
         {
-            InputAnalize.analizeInput(botexInputBox.Text.ToString(), botexAnswerBox);
+            if (!analized)
+            {
+                InputAnalize.analizeInput(botexInputBox.Text.ToString(), botexAnswerBox);
+            }
+            else
+            {
+                //przekieruj do odpowiedniej metody
+            }
+            botexInputBox.Text = "";
             Trace.WriteLine(botexInputBox.Text);
         }
 

@@ -32,7 +32,10 @@ namespace Botex.View
         public MainBotexView()
         {
             InitializeComponent();
-            RichTextBoxDataChanging.changeTextRichAnswerBox("Witam w Botex", botexAnswerBox);
+
+            RichTextBoxDataChanging.changeTextRichAnswerBox("Witam w Botex",botexAnswerBox);
+            RichTextBoxDataChanging.changeTextRichAnswerBoxWithoutClear("Wpisz 'pomoc' aby uzyskac pomoc", botexAnswerBox);
+
             RichTextBoxDataChanging.changeTextRichAnswerBoxWithoutClear("Wprowadz dane autoryzacyjne", botexAnswerBox);
         }
 

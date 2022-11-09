@@ -1,5 +1,6 @@
 ﻿using Botex.database;
 using Botex.scripts;
+using Botex.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,21 +14,23 @@ namespace Botex.ViewModel
     {
 
         private static readonly string welcomeMsg = "Uruchomiono notatnik\nWpisz 'wczytaj' aby wczytac notatke\nwpisz 'stworz' aby stworzyc notatke";
-
-        public NotepadVM(RichTextBox targetRichTextBox)
-        {
-            RichTextBoxDataChanging.changeTextRichAnswerBox(welcomeMsg, targetRichTextBox);
-
-        }
-
         
-        /*
-        static void PrintDefaultMsg(RichTextBox targetRichTextBox)
+        public NotepadVM()
+        {
+            //RichTextBoxDataChanging.changeTextRichAnswerBox(welcomeMsg, MainBotexView.myRespodRichTextBox);
+            PrintDefaultMsg(MainBotexView.myRespodRichTextBox);
+            TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
+
+        }
+        
+        
+        
+        private void PrintDefaultMsg(RichTextBox targetRichTextBox)
         {
             RichTextBoxDataChanging.changeTextRichAnswerBox(welcomeMsg, targetRichTextBox);
 
         }
-        */
+        
 
         public void InsertMsgToDb(string msg, string title, int userId)
         {

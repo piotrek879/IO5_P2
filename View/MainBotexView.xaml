@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Title="MainBotexView" Height="450" Width="800">
     <Grid>
-
         <RichTextBox x:Name="botexAnswerBox" Margin="0,0,0,122" IsReadOnly="True">
             <FlowDocument>
                 <Paragraph>
@@ -16,7 +15,6 @@
             </FlowDocument>
         </RichTextBox>
         <TextBlock HorizontalAlignment="Center" Height="473" Margin="0,-39,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="844"/>
-
         <TextBox x:Name="botexInputBox" HorizontalAlignment="Center" Margin="0,317,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="464" Height="91"/>
         <Button x:Name="speechToTextBtn" Content="Polecenie Głosowe" Click="speechToTextBtnClick" HorizontalAlignment="Left" Margin="20,343,0,0" VerticalAlignment="Top"/>
         <Button x:Name="submitButton" Content="Zatwierdź" HorizontalAlignment="Left" Margin="680,388,0,0" VerticalAlignment="Top" Click="submitButton_Click"/>

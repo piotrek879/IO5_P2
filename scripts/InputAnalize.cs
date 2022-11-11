@@ -17,10 +17,12 @@ namespace Botex.scripts
     {
         //Wszystko związane z analizą inputu
         private static string helpString = "Aby wywołać funkcję Botex, prosze wpisać polecenia.";
-        private static string avOptionsString = "Otworz notatnik \nOtworz Instagram\nOtworz mail\nOtworz tweeter\nOtworz zaloguj";
+        private static string avOptionsString = "Otworz notatnik \nOtworz Instagram\nOtworz mail\nOtworz tweeter";
         private static List<string> createdObjects = new List<string>(); // zapisywanie która opcja została wybrana wczesniej
 
         private static bool IsTitleIncluded = false;
+        private static bool IsAskedForTitle = false;
+        private static int LoadOrCreateOption; // 1 - stworz  2 - wczytaj
         private static string title;
 
 
@@ -32,7 +34,7 @@ namespace Botex.scripts
         }
         //private static NotepadVM notepadvm = new NotepadVM(botexAnswerBox);
 
-        public void analizeInput(string input, RichTextBox botexAnswerBox)
+        public bool analizeInput(string input, RichTextBox botexAnswerBox)
         {
             //Wywoływanie fukncji na podstawie wpisanego tekstu 
 
@@ -42,7 +44,8 @@ namespace Botex.scripts
                 {
                     createdObjects.Add("NOTATNIK");
                     notepadvm = new NotepadVM();
-                    
+                    MainBotexView.analized = true;
+                    return true;
                     //tutaj obsługa inputu do notepada
                     //RichTextBoxDataChanging.changeTextRichAnswerBox("Otwieram notatnik ", botexAnswerBox);
 
@@ -51,28 +54,34 @@ namespace Botex.scripts
                 {
                     Botex.View.IgView IgViewWindow = new Botex.View.IgView();
                     IgViewWindow.Show();
+                    return true;
                 }
                 if (input.ToUpper().Split(' ').Contains("OTWORZ") && input.ToUpper().Split(' ').Contains("MAIL") || input.ToUpper().Split(' ').Contains("E-MAIL"))
                 {
                     //wywołaj mail
+                    return true;
                 }
                 if (input.ToUpper().Split(' ').Contains("OTWORZ") && input.ToUpper().Split(' ').Contains("TWEETER") || input.ToUpper().Split(' ').Contains("TWETER"))
                 {
                     //wywołaj tweeter
+                    return true;
                 }
                 if (input.ToUpper().Split(' ').Contains("OTWORZ") && input.ToUpper().Split(' ').Contains("ZALOGUJ") || input.ToUpper().Split(' ').Contains("LOGOWANIE"))
                 {
                     //wywołaj logowaniie
+                    return true;
                 }
                 if (input.ToUpper().Split(' ').Contains("NAPISZ"))
                 {
                     RichTextBoxDataChanging.changeTextRichAnswerBox(input, botexAnswerBox);
+                    return true;
 
                 }
                 if (input.ToUpper().Split(' ').Contains("POMOC") || input.ToUpper().Split(' ').Contains("'POMOC'"))
                 {
                     RichTextBoxDataChanging.changeTextRichAnswerBox(helpString, botexAnswerBox);
                     RichTextBoxDataChanging.changeTextRichAnswerBoxWithoutClear(avOptionsString, botexAnswerBox);
+                    return true;
 
                 }
             }
@@ -82,46 +91,63 @@ namespace Botex.scripts
                 switch (createdObjects)
                 {
                     case var _ when createdObjects.Contains("NOTATNIK"):
+                        
                         if (IsTitleIncluded == true)
                         {
-                            if (input.ToUpper().Split(' ').Contains("stworz"))
+                            if(LoadOrCreateOption == 1)
                             {
-                                //notepadvm.InsertMsgToDb(input, input, 1);
+                                notepadvm.InsertMsgToDb(input, title, 1);
+                                TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
+                                RichTextBoxDataChanging.changeTextRichAnswerBox("Pomyślnie utworzono notatkę", botexAnswerBox);
+                                RichTextBoxDataChanging.changeTextRichAnswerBoxWithoutClear(helpString, botexAnswerBox);
+                                RichTextBoxDataChanging.changeTextRichAnswerBoxWithoutClear(avOptionsString, botexAnswerBox);
 
-                            }
-                            else
-                            {
-                                //wyciagnij z db dane jak nie
-                                //notepadvm.InsertMsgToDb(input, input, 1);
+
                             }
 
                         }
                         else
                         {
-                            title = input;
-                            IsTitleIncluded = true;
+                            if (IsAskedForTitle == false)
+                            {
+                                if(input.ToUpper().Split(' ').Contains("STWORZ") || input.ToUpper().Split(' ').Contains("'STWORZ'"))
+                                {
+                                    LoadOrCreateOption = 1;
+                                }
+                                else if(input.ToUpper().Split(' ').Contains("WCZYTAJ") || input.ToUpper().Split(' ').Contains("'WCZYTAJ'"))
+                                {
+                                    LoadOrCreateOption = 2;
+                                }
+                                else
+                                {
+                                    TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
+                                    RichTextBoxDataChanging.changeTextRichAnswerBox("Wprowadzono złą wartość\nProsze wpisac ponownie\n", botexAnswerBox);
+                                    notepadvm.PrintDefaultMsgWithoutClear(botexAnswerBox);
+                                    
+                                    return false;
+                                }
+                                TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
+                                RichTextBoxDataChanging.changeTextRichAnswerBox("Podaj tytuł wiadomości: ", botexAnswerBox);
+                                IsAskedForTitle = true;
+                            }
+                            else
+                            {
+                                title = input;
+                                IsTitleIncluded = true;
+                                if (LoadOrCreateOption == 2)
+                                {
+                                    notepadvm.ReadMsgFromDb(title, 1, botexAnswerBox);
+                                    MessageBox.Show("wyciagam z db siema");
+                                    createdObjects.Clear();
+                                    return true;
+                                }
+                                
+                            }
                         }
-
                         break;
                 }
-
-
             }
+            return true;
         }
-
-        /*
-                private static void deleteUsedObjects()
-                {
-                    switch(createdObjects)
-                    {
-                        case var _ when createdObjects.Contains("NOTATNIK"):
-                            NotepadVM 
-                            break;
-
-                    }
-                }
-
-            }
-        */
     }
 }

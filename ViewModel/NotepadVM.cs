@@ -22,6 +22,8 @@ namespace Botex.ViewModel
             TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
 
         }
+
+      
         
         
         
@@ -30,6 +32,11 @@ namespace Botex.ViewModel
             RichTextBoxDataChanging.changeTextRichAnswerBox(welcomeMsg, targetRichTextBox);
 
         }
+
+        public void PrintDefaultMsgWithoutClear(RichTextBox targetRichTextBox)
+        {
+            RichTextBoxDataChanging.changeTextRichAnswerBoxWithoutClear(welcomeMsg, targetRichTextBox);
+        }
         
 
         public void InsertMsgToDb(string msg, string title, int userId)
@@ -37,5 +44,9 @@ namespace Botex.ViewModel
             ToDbControl.ToDbNotepad(msg, title, userId);
         }
 
+        public void ReadMsgFromDb(string title, int idUser, RichTextBox botexAnswerBox)
+        {
+            ToDbControl.FromDbNotepad(title, idUser, botexAnswerBox);
+        }
     }
 }

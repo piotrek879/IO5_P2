@@ -101,8 +101,6 @@ namespace Botex.scripts
                                 RichTextBoxDataChanging.changeTextRichAnswerBox("Pomyślnie utworzono notatkę", botexAnswerBox);
                                 RichTextBoxDataChanging.changeTextRichAnswerBoxWithoutClear(helpString, botexAnswerBox);
                                 RichTextBoxDataChanging.changeTextRichAnswerBoxWithoutClear(avOptionsString, botexAnswerBox);
-
-
                             }
 
                         }

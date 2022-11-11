@@ -14,13 +14,12 @@ namespace Botex.database
 
         public static void ToDbNotepad(string msg, string title, int idUser )
         {
-            string myDbQuery = $"INSERT INTO notepad(DEFAULT,{idUser},DEFAULT,{msg},{title})";
-            dbControl.insertDataToDB(myDbQuery); 
+            string myDbQuery = $"INSERT INTO notepad(userId,content,title) VALUES({idUser},'{msg}','{title}')"; dbControl.insertDataToDB(myDbQuery); 
         }
 
        public static void FromDbNotepad(string title, int idUser, RichTextBox botexAnswerBox)
         {
-            string myDbQuery = $"SELECT content FROM notepad WHERE title LIKE {title} AND userId = {idUser}";
+            string myDbQuery = $"SELECT content FROM notepad WHERE title LIKE '{title}' AND userId = {idUser}";
             dbControl.ReadDataFromDB(myDbQuery, botexAnswerBox);
         }
     }

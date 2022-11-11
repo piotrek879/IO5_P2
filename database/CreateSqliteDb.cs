@@ -47,7 +47,7 @@ namespace Botex.database
             login TEXT, haslo TEXT)";
             cmd.ExecuteNonQuery();
 
-            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS notepad(idNotepad INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS notepad(idNotepad INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL,
             userId INTEGER, Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, content TEXT, title TEXT, FOREIGN KEY(userId) REFERENCES users(idUzytkownika) )";
             cmd.ExecuteNonQuery();
 

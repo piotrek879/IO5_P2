@@ -6,6 +6,7 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Botex.database
@@ -41,6 +42,7 @@ namespace Botex.database
         {
             SQLiteConnection sqlite_conn = CreateConnection();
             SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand();
+            
 
             sqlite_cmd.CommandText = sqlQueryCommand;
             sqlite_cmd.ExecuteNonQuery();

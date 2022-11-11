@@ -24,22 +24,39 @@ namespace Botex.View
     /// </summary>
     public partial class MainBotexView : Window
     {
+
+        public static bool analized = false;
+
         SpeechSynthesizer ss = new SpeechSynthesizer();
         PromptBuilder pb = new PromptBuilder();
         SpeechRecognitionEngine sre = new SpeechRecognitionEngine();
         Choices clist = new Choices();
 
+
+
+        private InputAnalize inputAnalize;
+
+        public static RichTextBox myRespodRichTextBox;
+        public static TextBox myInputTextBox;
+
+
+
         public MainBotexView()
         {
+           
             InitializeComponent();
+            myRespodRichTextBox = (RichTextBox)this.FindName("botexAnswerBox");
+            myInputTextBox = (TextBox)this.FindName("botexInputBox");
+            inputAnalize = new InputAnalize(botexAnswerBox);
+            
             RichTextBoxDataChanging.changeTextRichAnswerBox("Witam w Botex", botexAnswerBox);
-            RichTextBoxDataChanging.changeTextRichAnswerBoxWithoutClear("Wprowadz dane autoryzacyjne", botexAnswerBox);
+            RichTextBoxDataChanging.changeTextRichAnswerBoxWithoutClear("Wprowadz dane autoryzacyjne",botexAnswerBox);
         }
 
         private void submitButton_Click(object sender, RoutedEventArgs e)
         {
-            InputAnalize.analizeInput(botexInputBox.Text.ToString(), botexAnswerBox);
-            Trace.WriteLine(botexInputBox.Text);
+            inputAnalize.analizeInput(botexInputBox.Text.ToString(), botexAnswerBox);
+    
         }
 
         private void speechToTextBtnClick(object sender, RoutedEventArgs e)

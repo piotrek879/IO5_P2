@@ -17,6 +17,9 @@ using System.Speech;
 using System.Speech.Synthesis;
 using System.Speech.Recognition;
 using System.Threading;
+using System.Windows.Navigation;
+using Botex.ViewModel;
+
 namespace Botex.View
 {
     /// <summary>
@@ -38,27 +41,25 @@ namespace Botex.View
 
         public static RichTextBox myRespodRichTextBox;
         public static TextBox myInputTextBox;
-
+        private  UserVM currentLoggedUser;
+        public int LoggedUserId;
 
 
         public MainBotexView()
         {
-           
             InitializeComponent();
             myRespodRichTextBox = (RichTextBox)this.FindName("botexAnswerBox");
             myInputTextBox = (TextBox)this.FindName("botexInputBox");
             inputAnalize = new InputAnalize(botexAnswerBox);
-            
+
             RichTextBoxDataChanging.changeTextRichAnswerBox("Witam w Botex", botexAnswerBox);
             RichTextBoxDataChanging.changeTextRichAnswerBoxWithoutClear("Wprowadz dane autoryzacyjne",botexAnswerBox);
         }
 
         private void submitButton_Click(object sender, RoutedEventArgs e)
         {
-            inputAnalize.analizeInput(botexInputBox.Text.ToString(), botexAnswerBox);
-    
+          inputAnalize.analizeInput(botexInputBox.Text.ToString(), botexAnswerBox);
         }
-
         private void speechToTextBtnClick(object sender, RoutedEventArgs e)
         {
             clist.Add(new string[] { "Hello", "Good Morning", "Welcome", "Thank You" });
@@ -80,5 +81,29 @@ namespace Botex.View
             botexInputBox.Text = botexInputBox.Text + e.Result.Text.ToString() + Environment.NewLine;
         }
 
+        private void lgnBttn_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentLoggedUser.failedAttempsCounter != 3)
+            {
+                if (currentLoggedUser.userLoginCheck(botexInputBox.Text.ToString(), botexInputBox.Text.ToString()) == true)
+                {
+                        //Gdy istnieje to ustaw user id;
+                    LoggedUserId = currentLoggedUser.UserId;
+                    Button LoginBtn = (Button)this.FindName("lgnBttn");
+                    Button AckInptBtn = (Button)this.FindName("submitButton");
+                    TextBox Inputbox = (TextBox)this.FindName("botexInputBox");
+                    LoginBtn.IsEnabled = false;
+                    AckInptBtn.IsEnabled = true;
+                    Inputbox.IsEnabled = true;
+                    
+                }
+                
+            }
+            else
+            {
+                //Gdy 3 błędne dane wyjdz z aplikacji
+                this.Close();
+            }
+        }
     }
 }

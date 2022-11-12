@@ -22,6 +22,12 @@ namespace Botex.database
             string myDbQuery = $"SELECT content FROM notepad WHERE title LIKE '{title}' AND userId = {idUser}";
             dbControl.ReadDataFromDB(myDbQuery, botexAnswerBox);
         }
+
+        public static int FromDbLogin(string login, string passwd )
+        {
+            string myDbQuery = $"SELECT idUzytkownika FROM users WHERE login LIKE '{login}' AND haslo LIKE '{passwd}'";
+            return dbControl.getIdFromDb(myDbQuery); 
+        }
     }
 }
 /*

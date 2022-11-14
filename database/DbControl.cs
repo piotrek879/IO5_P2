@@ -53,24 +53,21 @@ namespace Botex.database
 
         public int getIdFromDb(string sqlQueryCommand)
         {
-            string myValue;
+            SQLiteDataReader myValue;
             SQLiteConnection sqlite_conn = CreateConnection();
             SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand();
 
 
             sqlite_cmd.CommandText = sqlQueryCommand;
-            if (sqlite_cmd.ExecuteReader() != null)
-            {
-                myValue = sqlite_cmd.ExecuteReader().ToString();
-            }
-            else
+            myValue = sqlite_cmd.ExecuteReader();
+            if (myValue == null)
             {
                 CloseConn(sqlite_conn);
                 return -1;
             }
 
             CloseConn(sqlite_conn);
-            return int.Parse(myValue);
+            return int.Parse(myValue.ToString());
         }
 
         public void ReadDataFromDB(string sqlQueryCommand, RichTextBox richTextBoxTarget)

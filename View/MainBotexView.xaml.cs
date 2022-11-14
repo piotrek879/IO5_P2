@@ -48,6 +48,7 @@ namespace Botex.View
         public MainBotexView()
         {
             InitializeComponent();
+            currentLoggedUser = new UserVM();
             myRespodRichTextBox = (RichTextBox)this.FindName("botexAnswerBox");
             myInputTextBox = (TextBox)this.FindName("botexInputBox");
             inputAnalize = new InputAnalize(botexAnswerBox);
@@ -83,16 +84,25 @@ namespace Botex.View
 
         private void lgnBttn_Click(object sender, RoutedEventArgs e)
         {
+            TextBox loginBox = (TextBox)this.FindName("LoginBox");
+            PasswordBox passwordBox = (PasswordBox)this.FindName("PasswordBox");
+
             if (currentLoggedUser.failedAttempsCounter != 3)
             {
-                if (currentLoggedUser.userLoginCheck(botexInputBox.Text.ToString(), botexInputBox.Text.ToString()) == true)
+                if (currentLoggedUser.userLoginCheck(loginBox.Text.ToString(), passwordBox.Password.ToString()) == true)
                 {
                         //Gdy istnieje to ustaw user id;
                     LoggedUserId = currentLoggedUser.UserId;
                     Button LoginBtn = (Button)this.FindName("lgnBttn");
                     Button AckInptBtn = (Button)this.FindName("submitButton");
                     TextBox Inputbox = (TextBox)this.FindName("botexInputBox");
+
+                    //TextBox loginBox = (TextBox)this.FindName("LoginBox");
+                    //TextBox passwordBox = (TextBox)this.FindName("PasswordBox");
                     LoginBtn.IsEnabled = false;
+                    loginBox.IsEnabled = false;
+                    passwordBox.IsEnabled = false;
+
                     AckInptBtn.IsEnabled = true;
                     Inputbox.IsEnabled = true;
                     

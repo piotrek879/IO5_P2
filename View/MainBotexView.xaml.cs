@@ -17,6 +17,9 @@ using System.Speech;
 using System.Speech.Synthesis;
 using System.Speech.Recognition;
 using System.Threading;
+using System.Windows.Navigation;
+using Botex.ViewModel;
+
 namespace Botex.View
 {
     /// <summary>
@@ -38,27 +41,26 @@ namespace Botex.View
 
         public static RichTextBox myRespodRichTextBox;
         public static TextBox myInputTextBox;
-
+        private  UserVM currentLoggedUser;
+        public int LoggedUserId;
 
 
         public MainBotexView()
         {
-           
             InitializeComponent();
+            currentLoggedUser = new UserVM();
             myRespodRichTextBox = (RichTextBox)this.FindName("botexAnswerBox");
             myInputTextBox = (TextBox)this.FindName("botexInputBox");
             inputAnalize = new InputAnalize(botexAnswerBox);
-            
+
             RichTextBoxDataChanging.changeTextRichAnswerBox("Witam w Botex", botexAnswerBox);
             RichTextBoxDataChanging.changeTextRichAnswerBoxWithoutClear("Wprowadz dane autoryzacyjne",botexAnswerBox);
         }
 
         private void submitButton_Click(object sender, RoutedEventArgs e)
         {
-            inputAnalize.analizeInput(botexInputBox.Text.ToString(), botexAnswerBox);
-    
+          inputAnalize.analizeInput(botexInputBox.Text.ToString(), botexAnswerBox);
         }
-
         private void speechToTextBtnClick(object sender, RoutedEventArgs e)
         {
             clist.Add(new string[] { "Hello", "Good Morning", "Welcome", "Thank You" });
@@ -80,5 +82,37 @@ namespace Botex.View
             botexInputBox.Text = botexInputBox.Text + e.Result.Text.ToString() + Environment.NewLine;
         }
 
+        private void lgnBttn_Click(object sender, RoutedEventArgs e)
+        {
+            TextBox loginBox = (TextBox)this.FindName("LoginBox");
+            PasswordBox passwordBox = (PasswordBox)this.FindName("PasswordBox");
+            if (currentLoggedUser.failedAttempsCounter != 3)
+            {
+                if (currentLoggedUser.userLoginCheck(loginBox.Text.ToString(), passwordBox.Password.ToString()) == true)
+                {
+                        //Gdy istnieje to ustaw user id;
+                    LoggedUserId = currentLoggedUser.UserId;
+                    Button LoginBtn = (Button)this.FindName("lgnBttn");
+                    Button AckInptBtn = (Button)this.FindName("submitButton");
+                    TextBox Inputbox = (TextBox)this.FindName("botexInputBox");
+
+                    //TextBox loginBox = (TextBox)this.FindName("LoginBox");
+                    //TextBox passwordBox = (TextBox)this.FindName("PasswordBox");
+                    LoginBtn.IsEnabled = false;
+                    loginBox.IsEnabled = false;
+                    passwordBox.IsEnabled = false;
+
+                    AckInptBtn.IsEnabled = true;
+                    Inputbox.IsEnabled = true;
+                    
+                }
+                
+            }
+            else
+            {
+                //Gdy 3 błędne dane wyjdz z aplikacji
+                this.Close();
+            }
+        }
     }
 }

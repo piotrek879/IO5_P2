@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Bson;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
@@ -60,14 +61,18 @@ namespace Botex.database
 
             sqlite_cmd.CommandText = sqlQueryCommand;
             myValue = sqlite_cmd.ExecuteReader();
-            if (myValue == null)
+
+            if (myValue.GetType() == typeof(DBNull))
             {
                 CloseConn(sqlite_conn);
                 return -1;
             }
-
-            CloseConn(sqlite_conn);
-            return int.Parse(myValue.ToString());
+            else
+            {
+                int iduser = int.Parse(myValue.ToString());
+                CloseConn(sqlite_conn);
+                return iduser;
+            }
         }
 
         public void ReadDataFromDB(string sqlQueryCommand, RichTextBox richTextBoxTarget)

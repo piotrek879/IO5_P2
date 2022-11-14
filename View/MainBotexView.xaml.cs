@@ -86,7 +86,6 @@ namespace Botex.View
         {
             TextBox loginBox = (TextBox)this.FindName("LoginBox");
             PasswordBox passwordBox = (PasswordBox)this.FindName("PasswordBox");
-
             if (currentLoggedUser.failedAttempsCounter != 3)
             {
                 if (currentLoggedUser.userLoginCheck(loginBox.Text.ToString(), passwordBox.Password.ToString()) == true)

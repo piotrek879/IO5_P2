@@ -98,9 +98,9 @@ namespace Botex.View
 
                     //TextBox loginBox = (TextBox)this.FindName("LoginBox");
                     //TextBox passwordBox = (TextBox)this.FindName("PasswordBox");
-                    LoginBtn.IsEnabled = false;
-                    loginBox.IsEnabled = false;
-                    passwordBox.IsEnabled = false;
+                    LoginBtn.Visibility = Visibility.Collapsed;
+                    loginBox.Visibility = Visibility.Collapsed;
+                    passwordBox.Visibility = Visibility.Collapsed;
 
                     AckInptBtn.IsEnabled = true;
                     Inputbox.IsEnabled = true;

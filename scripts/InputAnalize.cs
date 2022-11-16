@@ -66,18 +66,13 @@ namespace Botex.scripts
                     return true;
                 }
                 /*
-                if (input.ToUpper().Split(' ').Contains("OTWORZ") && input.ToUpper().Split(' ').Contains("ZALOGUJ") || input.ToUpper().Split(' ').Contains("LOGOWANIE"))
+                if (input.ToUpper().Split(' ').Contains("OTWORZ") && input.ToUpper().Split(' ').Contains("KONTA") || input.ToUpper().Split(' ').Contains("KONTA"))
                 {
                     //wywołaj logowaniie
                     return true;
                 }
                 */
-                if (input.ToUpper().Split(' ').Contains("NAPISZ"))
-                {
-                    RichTextBoxDataChanging.changeTextRichAnswerBox(input, botexAnswerBox);
-                    return true;
-
-                }
+               
                 if (input.ToUpper().Split(' ').Contains("POMOC") || input.ToUpper().Split(' ').Contains("'POMOC'"))
                 {
                     RichTextBoxDataChanging.changeTextRichAnswerBox(helpString, botexAnswerBox);
@@ -91,6 +86,7 @@ namespace Botex.scripts
                 //przekierowanie do odpowiedniej metody w utworzonym obiekcie
                 switch (createdObjects)
                 {
+                    #region Notatnik
                     case var _ when createdObjects.Contains("NOTATNIK"):
                         
                         if (IsTitleIncluded == true)
@@ -144,6 +140,8 @@ namespace Botex.scripts
                             }
                         }
                         break;
+                        #endregion
+                    
                 }
             }
             return true;

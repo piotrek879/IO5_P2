@@ -107,9 +107,10 @@ namespace Botex.View
 
                     AckInptBtn.IsEnabled = true;
                     Inputbox.IsEnabled = true;
-                    
+                    inputAnalize.analizeInput("POMOC", botexAnswerBox, LoggedUserId);
+                  
                 }
-                
+
             }
             else
             {

@@ -52,9 +52,22 @@ namespace Botex.database
             CloseConn(sqlite_conn);
         }
 
+        public int getPermissionsFromDb(string sqlQueryCommand)
+        {
+            int permissionLevel;
+                
+            SQLiteConnection sqlite_conn = CreateConnection();
+            SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand();
+
+            permissionLevel = (int)(long)sqlite_cmd.ExecuteScalar();
+            CloseConn(sqlite_conn);
+            return permissionLevel;
+        }
+
         public int getIdFromDb(string sqlQueryCommand)
         {
             int myValue;
+
             SQLiteConnection sqlite_conn = CreateConnection();
             SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand();
 

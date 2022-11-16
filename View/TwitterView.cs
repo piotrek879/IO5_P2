@@ -16,11 +16,9 @@ namespace Botex.View
 
         private static TwitterService service = new TwitterService(customer_key, customer_key_secret, access_token, access_token_secret);
 
-        static void Main(string[] args)
+        public TwitterView()
         {
-            Console.WriteLine($"<{DateTime.Now}> - Bot started");
-            SendTweet("Hello World!");
-            Console.Read();
+            SendTweet("hello World");
         }
 
         private static void SendTweet(string _status)

@@ -19,6 +19,7 @@ using System.Speech.Recognition;
 using System.Threading;
 using System.Windows.Navigation;
 using Botex.ViewModel;
+using System.Runtime.CompilerServices;
 
 namespace Botex.View
 {
@@ -57,9 +58,11 @@ namespace Botex.View
             RichTextBoxDataChanging.changeTextRichAnswerBoxWithoutClear("Wprowadz dane autoryzacyjne",botexAnswerBox);
         }
 
+       
+
         private void submitButton_Click(object sender, RoutedEventArgs e)
         {
-          inputAnalize.analizeInput(botexInputBox.Text.ToString(), botexAnswerBox);
+          inputAnalize.analizeInput(botexInputBox.Text.ToString(), botexAnswerBox, LoggedUserId);
         }
         private void speechToTextBtnClick(object sender, RoutedEventArgs e)
         {
@@ -104,9 +107,10 @@ namespace Botex.View
 
                     AckInptBtn.IsEnabled = true;
                     Inputbox.IsEnabled = true;
-                    
+                    inputAnalize.analizeInput("POMOC", botexAnswerBox, LoggedUserId);
+                  
                 }
-                
+
             }
             else
             {

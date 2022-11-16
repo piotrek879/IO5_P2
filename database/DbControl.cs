@@ -1,4 +1,5 @@
-﻿using Botex.scripts;
+﻿using Botex.Model;
+using Botex.scripts;
 using Newtonsoft.Json.Bson;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+
+using System.Data.Entity;
 
 namespace Botex.database
 {
@@ -50,6 +53,26 @@ namespace Botex.database
 
 
             CloseConn(sqlite_conn);
+        }
+
+        public MailModel GetMailModelFromDb(string sqlQueryCommand)
+        {
+            MailModel model = new MailModel();
+
+            SQLiteConnection sqlite_conn = CreateConnection();
+            SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand();
+            SQLiteDataAdapter sqlite_adpt = new SQLiteDataAdapter(sqlQueryCommand, sqlite_conn);
+
+
+             
+            model.IdMail = (int)sqlite_cmd.ExecuteReader()[0];
+            model.Content = (string)sqlite_cmd.ExecuteReader()[1];
+            model.Title = (string)sqlite_cmd.ExecuteReader()[2];
+            model.Content = (string)sqlite_cmd.ExecuteReader()[3];
+
+            CloseConn(sqlite_conn);
+            return model;
+
         }
 
         public int getPermissionsFromDb(string sqlQueryCommand)

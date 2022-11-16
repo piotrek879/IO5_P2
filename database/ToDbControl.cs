@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Botex.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,11 +46,25 @@ namespace Botex.database
             dbControl.ReadDataFromDB(myDbQuery, botexAnswerBox);
         }
 
-
+        public static void ToDbMail(string userId, string subject, string body, string group)
+        {
+            //Potem dodać tu uprawnienia - tylko admin moze zapisać
+            if(group == "")
+            {
+                group = "Bez Grupy"; 
+            }
+            string myDbQuery = $"INSERT INTO mail(content,title, grup) VALUES('{body}','{subject}','{group}')";
+            dbControl.insertDataToDB(myDbQuery);
+        }
+        public static MailModel FromDbMail(string subject, string group)
+        {
+            string myDbQuery = $"SELECT idMail,content,title,grup FROM mail WHERE title LIKE '{subject}' AND grup LIKE '{group} LIMIT 1'";
+            return dbControl.GetMailModelFromDb(myDbQuery);
+        }
 
         public static int FromDbLogin(string login, string passwd )
         {
-            string myDbQuery = $"SELECT idUzytkownika FROM users WHERE login LIKE '{login}' AND haslo LIKE '{passwd}'";
+            string myDbQuery = $"SELECT idUzytkownika FROM users WHERE login LIKE '{login}' AND haslo LIKE '{passwd} LIMIT 1'";
             return dbControl.getIdFromDb(myDbQuery); 
         }
     }

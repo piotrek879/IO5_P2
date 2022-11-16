@@ -18,6 +18,16 @@ namespace Botex.ViewModel
             
         }
 
+        public void saveMailToDb(string userId, string subject, string body, string group)
+        {
+
+        }
+
+        public void getMailFromDb(string userId, string subject)
+        {
+
+        }
+
         public void sendMail(string user,string password, string fromMail, string toMail, string subject, string body)
         {
             var mailMessage = new MimeMessage();

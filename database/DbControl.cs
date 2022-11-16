@@ -61,10 +61,7 @@ namespace Botex.database
 
             SQLiteConnection sqlite_conn = CreateConnection();
             SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand();
-            SQLiteDataAdapter sqlite_adpt = new SQLiteDataAdapter(sqlQueryCommand, sqlite_conn);
 
-
-             
             model.IdMail = (int)sqlite_cmd.ExecuteReader()[0];
             model.Content = (string)sqlite_cmd.ExecuteReader()[1];
             model.Title = (string)sqlite_cmd.ExecuteReader()[2];
@@ -72,7 +69,21 @@ namespace Botex.database
 
             CloseConn(sqlite_conn);
             return model;
+        }
 
+        public TweetModel GetTweetModelFromDb(string sqlQueryCommand)
+        {
+            TweetModel model = new TweetModel();
+
+            SQLiteConnection sqlite_conn = CreateConnection();
+            SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand();
+
+            model.IdTweet = (int)sqlite_cmd.ExecuteReader()[0];
+            model.Content = (string)sqlite_cmd.ExecuteReader()[1];
+            model.Group = (string)sqlite_cmd.ExecuteReader()[2];
+
+            CloseConn(sqlite_conn);
+            return model;
         }
 
         public int getPermissionsFromDb(string sqlQueryCommand)

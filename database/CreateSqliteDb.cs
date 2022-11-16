@@ -54,10 +54,10 @@ namespace Botex.database
             userId INTEGER, Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, content TEXT, title TEXT, FOREIGN KEY(userId) REFERENCES users(idUzytkownika) )";
             cmd.ExecuteNonQuery();
 
-            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS tweeter(idTweet INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, content TEXT, grup TEXT )";
+            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS tweeter(idTweet INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, content TEXT, group TEXT )";
             cmd.ExecuteNonQuery();
 
-            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS mail(idMail INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, content TEXT, title TEXT, grup TEXT)";
+            cmd.CommandText = @"CREATE TABLE IF NOT EXISTS mail(idMail INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, content TEXT, title TEXT, group TEXT)";
             cmd.ExecuteNonQuery();
 
           

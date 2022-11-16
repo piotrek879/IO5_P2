@@ -26,7 +26,16 @@ namespace Botex.scripts
         private static string title;
 
 
-        public NotepadVM notepadvm;
+        private NotepadVM notepadvm;
+
+        private static bool IsAskedForUser = false;
+        private static bool IsAskedForPassword = false;
+        private static bool IsAskedForToMail = false;
+        private static bool IsAskedForSubject = false;
+        private static bool IsAskedForGroup = false;
+        //string user, string password, string fromMail, string toMail, string subject, string group
+        private mailVM mailvm;
+
 
         public InputAnalize(RichTextBox botexAnswerBox)
         {
@@ -58,6 +67,9 @@ namespace Botex.scripts
                 if (input.ToUpper().Split(' ').Contains("OTWORZ") && input.ToUpper().Split(' ').Contains("MAIL") || input.ToUpper().Split(' ').Contains("E-MAIL"))
                 {
                     //wywołaj mail
+                    createdObjects.Add("MAIL");
+                    mailvm = new mailVM();
+                    MainBotexView.analized = true;
                     return true;
                 }
                 if (input.ToUpper().Split(' ').Contains("OTWORZ") && input.ToUpper().Split(' ').Contains("TWEETER") || input.ToUpper().Split(' ').Contains("TWETER"))
@@ -140,8 +152,15 @@ namespace Botex.scripts
                             }
                         }
                         break;
-                        #endregion
-                    
+                    #endregion
+
+                    case var _ when createdObjects.Contains("MAIL"):
+
+
+
+                        break;
+                        
+
                 }
             }
             return true;

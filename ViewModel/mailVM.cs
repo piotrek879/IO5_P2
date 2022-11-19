@@ -7,25 +7,45 @@ using System.Net;
 using static System.Net.Mime.MediaTypeNames;
 using MimeKit;
 using InstagramApiSharp.Classes.Models;
+using Botex.database;
+using Botex.Model;
+using Botex.scripts;
+using Botex.View;
+using System.Windows.Controls;
 
 namespace Botex.ViewModel
 {
     internal class mailVM
     {
+        private static readonly string welcomeMsg = "Uruchomiono Main\nWpisz 'wczytaj' aby wczytac main\nwpisz 'stworz' aby stworzyc mail\nwpisz 'wyslij' aby wyslac recznie";
 
         public mailVM()
         {
-            
-        }
 
-        public void saveMailToDb(string userId, string subject, string body, string group)
-        {
+            PrintDefaultMsg(MainBotexView.myRespodRichTextBox);
+            TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
 
         }
 
-        public void getMailFromDb(string userId, string subject)
+        private void PrintDefaultMsg(RichTextBox targetRichTextBox)
         {
+            RichTextBoxDataChanging.changeTextRichAnswerBox(welcomeMsg, targetRichTextBox);
+        }
 
+        public void saveMailToDb(int userId, string subject, string body, string group)
+        {
+            ToDbControl.ToDbMail(userId, subject, body, group);
+        }
+
+        public void sendMailFromDb(string user, string password, string fromMail, string toMail, string subject, string group)
+        {
+            MailModel mailModel = new MailModel();
+            mailModel = this.getMailFromDb( subject, group);
+            sendMail(user, password, fromMail, toMail, mailModel.Title, mailModel.Content);
+        }
+        private MailModel getMailFromDb(string subject, string group)
+        {
+           return ToDbControl.FromDbMail( subject, group);
         }
 
         public void sendMail(string user,string password, string fromMail, string toMail, string subject, string body)

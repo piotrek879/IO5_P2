@@ -186,6 +186,14 @@ namespace Botex.scripts
                                 {
                                     notepadvm.ReadMsgFromDb(title, userId , botexAnswerBox);
                                     createdObjects.Clear();
+                                    MainBotexView.analized = false;
+                                    return true;
+                                }
+                                else
+                                {
+                                    notepadvm.InsertMsgToDb(input, title, userId);
+                                    createdObjects.Clear();
+                                    MainBotexView.analized = false;
                                     return true;
                                 }
                                 
@@ -312,6 +320,8 @@ namespace Botex.scripts
                                 mailvm.saveMailToDb(userId, mailModel.Title, mailModel.Content, mailModel.Group);
                                 RichTextBoxDataChanging.changeTextRichAnswerBox("Pomyślnie zapisano maila do db ", botexAnswerBox);
                                 TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
+                                createdObjects.Clear();
+                                MainBotexView.analized = false;
                                 return true;
                             }
                             if(IsMailCompleted ==2)
@@ -319,6 +329,8 @@ namespace Botex.scripts
                                 mailvm.sendMailFromDb(user + userId.ToString(), passwd, fromUserMail, toUserMail, mailModel.Title, mailModel.Group);
                                 RichTextBoxDataChanging.changeTextRichAnswerBox("Pomyślnie wysłano maila z bazy danych ", botexAnswerBox);
                                 TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
+                                createdObjects.Clear();
+                                MainBotexView.analized = false;
                                 return true;
                             }
                             if(IsMailCompleted ==3)
@@ -326,6 +338,8 @@ namespace Botex.scripts
                                 mailvm.sendMail(user + userId.ToString(), passwd, fromUserMail, toUserMail, mailModel.Title, mailModel.Content);
                                 RichTextBoxDataChanging.changeTextRichAnswerBox("Pomyślnie wyslano maila ", botexAnswerBox);
                                 TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
+                                createdObjects.Clear();
+                                MainBotexView.analized = false;
                                 return true;
                             }
                         }
@@ -440,6 +454,8 @@ namespace Botex.scripts
                                 twitterVM.setTweeterLogData(ck, cks, at, ats);
                                 twitterVM.SendTweet(tweetmodel.Content);
                                 RichTextBoxDataChanging.changeTextRichAnswerBox("Pomyslnie wyslano tweeta ", botexAnswerBox);
+                                createdObjects.Clear();
+                                MainBotexView.analized = false;
                                 return true;
                             }
                             if (isAskedForTweeterActionType == 2)
@@ -447,14 +463,16 @@ namespace Botex.scripts
                                 twitterVM.setTweeterLogData(ck, cks, at, ats);
                                 twitterVM.sendTweetFromDb(tweetmodel.Group);
                                 RichTextBoxDataChanging.changeTextRichAnswerBox("Pomyslnie wyslano tweeta z db ", botexAnswerBox);
-
+                                createdObjects.Clear();
+                                MainBotexView.analized = false;
                                 return true;
                             }
                             if(isAskedForTweeterActionType ==1)
                             {
                                 twitterVM.saveTweetToDb(userId, tweetmodel.Content, tweetmodel.Group);
                                 RichTextBoxDataChanging.changeTextRichAnswerBox("Pomyslnie zapisano tweeta do db ", botexAnswerBox);
-
+                                createdObjects.Clear();
+                                MainBotexView.analized = false;
                                 return true;
                             }
                             

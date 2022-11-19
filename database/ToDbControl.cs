@@ -71,13 +71,13 @@ namespace Botex.database
             {
                 group = "Bez Grupy";
             }
-            string myDbQuery = $"INSERT INTO tweeter(content, group) VALUES('{content}','{group}')";
+            string myDbQuery = $"INSERT INTO tweeter(content, grup) VALUES('{content}','{group}')";
             dbControl.insertDataToDB(myDbQuery);
         }
 
         public static TweetModel FromDbTweet(string group)
         {
-            string myDbQuery = $"SELECT idTweet,content,group FROM mail WHERE group LIKE '{group}' LIMIT 1";
+            string myDbQuery = $"SELECT idTweet,content,grup FROM mail WHERE grup LIKE '{group}' LIMIT 1";
             return dbControl.GetTweetModelFromDb(myDbQuery);
         }
 

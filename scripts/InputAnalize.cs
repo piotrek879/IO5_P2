@@ -114,6 +114,7 @@ namespace Botex.scripts
                     createdObjects.Add("TWEETER");
                     twitterVM = new TwitterVM();
                     tweetmodel = new TweetModel();
+                    MainBotexView.analized = true;
                     return true;
                 }
                 /*
@@ -225,7 +226,7 @@ namespace Botex.scripts
                                     {
                                         RichTextBoxDataChanging.changeTextRichAnswerBox("Wprowadz treść wiadomości: ", botexAnswerBox);
                                         TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
-                                        IsAskedForMailContent = true;
+                                        //IsAskedForMailContent = true;
                                     }
                                     IsAskedForTitle = true;
                                 }
@@ -309,16 +310,22 @@ namespace Botex.scripts
                             if (IsMailCompleted ==1)
                             {
                                 mailvm.saveMailToDb(userId, mailModel.Title, mailModel.Content, mailModel.Group);
+                                RichTextBoxDataChanging.changeTextRichAnswerBox("Pomyślnie zapisano maila do db ", botexAnswerBox);
+                                TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
                                 return true;
                             }
                             if(IsMailCompleted ==2)
                             {
                                 mailvm.sendMailFromDb(user + userId.ToString(), passwd, fromUserMail, toUserMail, mailModel.Title, mailModel.Group);
+                                RichTextBoxDataChanging.changeTextRichAnswerBox("Pomyślnie wysłano maila z bazy danych ", botexAnswerBox);
+                                TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
                                 return true;
                             }
                             if(IsMailCompleted ==3)
                             {
                                 mailvm.sendMail(user + userId.ToString(), passwd, fromUserMail, toUserMail, mailModel.Title, mailModel.Content);
+                                RichTextBoxDataChanging.changeTextRichAnswerBox("Pomyślnie wyslano maila ", botexAnswerBox);
+                                TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
                                 return true;
                             }
                         }
@@ -328,8 +335,10 @@ namespace Botex.scripts
                     case var _ when createdObjects.Contains("TWEETER"):
                         if(isTweetCompleted == false)
                         {
+                            MessageBox.Show(input.ToString());
                             if (isAskedForTweeterActionType == 0)
                             {
+                                
                                 if (input.ToUpper().Split(' ').Contains("STWORZ") || input.ToUpper().Split(' ').Contains("'STWORZ'"))
                                 {
                                     isAskedForTweeterActionType = 1;
@@ -338,7 +347,7 @@ namespace Botex.scripts
                                 {
                                     isAskedForTweeterActionType = 2;
                                 }
-                                if (input.ToUpper().Split(' ').Contains("RECZNIE") || input.ToUpper().Split(' ').Contains("'RECZNIE'"))
+                                if (input.ToUpper().Split(' ').Contains("WYSLIJ") || input.ToUpper().Split(' ').Contains("'WYSLIJ'"))
                                 {
                                     isAskedForTweeterActionType = 3;
                                 }
@@ -424,23 +433,32 @@ namespace Botex.scripts
                         }
                         else
                         {
-                            twitterVM.setTweeterLogData(ck, cks, at, ats);
+                            
 
                             if (isAskedForTweeterActionType == 3)
                             {
+                                twitterVM.setTweeterLogData(ck, cks, at, ats);
                                 twitterVM.SendTweet(tweetmodel.Content);
+                                RichTextBoxDataChanging.changeTextRichAnswerBox("Pomyslnie wyslano tweeta ", botexAnswerBox);
                                 return true;
                             }
                             if (isAskedForTweeterActionType == 2)
                             {
+                                twitterVM.setTweeterLogData(ck, cks, at, ats);
                                 twitterVM.sendTweetFromDb(tweetmodel.Group);
+                                RichTextBoxDataChanging.changeTextRichAnswerBox("Pomyslnie wyslano tweeta z db ", botexAnswerBox);
+
                                 return true;
                             }
                             if(isAskedForTweeterActionType ==1)
                             {
                                 twitterVM.saveTweetToDb(userId, tweetmodel.Content, tweetmodel.Group);
+                                RichTextBoxDataChanging.changeTextRichAnswerBox("Pomyslnie zapisano tweeta do db ", botexAnswerBox);
+
                                 return true;
                             }
+                            
+                            TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
                         }
                         break;
 

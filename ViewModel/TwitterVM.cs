@@ -65,7 +65,7 @@ namespace Botex.ViewModel
             return ToDbControl.FromDbTweet(group);
         }
 
-        private void SendTweet(string _status)
+        public void SendTweet(string _status)
         {
             service.SendTweet(new SendTweetOptions { Status = _status });
         }

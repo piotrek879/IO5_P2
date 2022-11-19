@@ -47,13 +47,30 @@ namespace Botex.scripts
 
         private static int IsMailCompleted = 0; // 0 nie 1 zapis 2 wczytanie 3 recznie
         private static int mailAskedToCreateLoadSave; //1-do db 2 - wczytaj 3 - recznie
-        //string user, string password, string fromMail, string toMail, string subject, string group
         private static MailModel mailModel;
         private mailVM mailvm;
 
+        //Twitter
+        private TwitterVM twitterVM;
+        private static TweetModel tweetmodel;
+        //Dane inicjalizacyjne twit
+        private static string ck = string.Empty;
+        private static string cks = string.Empty;
+        private static string at = string.Empty;
+        private static string ats = string.Empty;
 
+        private static bool isAskedForCk = false;
+        private static bool isAskedForCks = false;
+        private static bool isAskedForAt = false;
+        private static bool isAskedForAts = false;
 
-        private TwitterView twitterview;
+        private static bool isAskedForTweeterContent = false;
+        private static bool isAskedForTweeterGroup = false;
+
+        private static bool isTweetCompleted = false;
+        private static int isAskedForTweeterActionType = 0; // 0 - nie 1 - do db 2- wczytaj 3 -recznie
+
+        //private TwitterView twitterview;
 
         public InputAnalize(RichTextBox botexAnswerBox)
         {
@@ -95,6 +112,8 @@ namespace Botex.scripts
                 {
                     //wywołaj tweeter
                     createdObjects.Add("TWEETER");
+                    twitterVM = new TwitterVM();
+                    tweetmodel = new TweetModel();
                     return true;
                 }
                 /*
@@ -173,13 +192,7 @@ namespace Botex.scripts
                         }
                         break;
                     #endregion
-                    /*
-    private static bool IsAskedForUser = false;
-    private static bool IsAskedForPassword = false;
-    private static bool IsAskedForToMail = false;
-    private static bool IsAskedForSubject = false;
-    private static bool IsAskedForGroup = false;
-                     */
+                    #region Mail
                     case var _ when createdObjects.Contains("MAIL"):
                         if (IsMailCompleted == 0)
                         {
@@ -297,7 +310,6 @@ namespace Botex.scripts
                             {
                                 mailvm.saveMailToDb(userId, mailModel.Title, mailModel.Content, mailModel.Group);
                             }
-                            //sendMailFromDb(string user, string password, string fromMail, string toMail, string subject, string group)
                             if(IsMailCompleted ==2)
                             {
                                 mailvm.sendMailFromDb(user + userId.ToString(), passwd, fromUserMail, toUserMail, mailModel.Title, mailModel.Group);
@@ -307,10 +319,126 @@ namespace Botex.scripts
                                 mailvm.sendMail(user + userId.ToString(), passwd, fromUserMail, toUserMail, mailModel.Title, mailModel.Content);
                             }
                         }
-
-
                         break;
-                        
+                    #endregion
+                    #region Twitter
+                    case var _ when createdObjects.Contains("TWEETER"):
+                        if(isTweetCompleted == false)
+                        {
+                            if (isAskedForTweeterActionType == 0)
+                            {
+                                if (input.ToUpper().Split(' ').Contains("STWORZ") || input.ToUpper().Split(' ').Contains("'STWORZ'"))
+                                {
+                                    isAskedForTweeterActionType = 1;
+                                }
+                                if (input.ToUpper().Split(' ').Contains("WCZYTAJ") || input.ToUpper().Split(' ').Contains("'WCZYTAJ'"))
+                                {
+                                    isAskedForTweeterActionType = 2;
+                                }
+                                if (input.ToUpper().Split(' ').Contains("RECZNIE") || input.ToUpper().Split(' ').Contains("'RECZNIE'"))
+                                {
+                                    isAskedForTweeterActionType = 3;
+                                }
+                                RichTextBoxDataChanging.changeTextRichAnswerBox("Wprowadz customer key: ", botexAnswerBox);
+                                TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
+                            }
+                            else
+                            {
+                                if (isAskedForCk == false && isAskedForTweeterActionType != 1)
+                                {
+                                    ck = input;
+                                    RichTextBoxDataChanging.changeTextRichAnswerBox("Wprowadz customer key secret: ", botexAnswerBox);
+                                    TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
+                                    isAskedForCk = true;
+                                }
+                                else
+                                {
+                                    if (isAskedForCks == false && isAskedForTweeterActionType != 1)
+                                    {
+                                        cks = input;
+                                        RichTextBoxDataChanging.changeTextRichAnswerBox("Wprowadz access token: ", botexAnswerBox);
+                                        TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
+                                        isAskedForCks = true;
+                                    }
+                                    else
+                                    {
+                                        if(isAskedForAt == false && isAskedForTweeterActionType != 1)
+                                        {
+                                            at = input;
+                                            RichTextBoxDataChanging.changeTextRichAnswerBox("Wprowadz access token secret: ", botexAnswerBox);
+                                            TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
+                                            isAskedForAt = true;
+                                        }
+                                        else
+                                        {
+                                            if(isAskedForAts == false && isAskedForTweeterActionType != 1)
+                                            {
+                                                ats = input;
+                                                if (isAskedForTweeterActionType == 3)
+                                                {
+                                                    RichTextBoxDataChanging.changeTextRichAnswerBox("Wprowadz treść tweeta: ", botexAnswerBox);
+                                                    TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
+                                                }
+                                                if (isAskedForTweeterActionType != 3)
+                                                {
+                                                    RichTextBoxDataChanging.changeTextRichAnswerBox("Wprowadz grupę tweeta: ", botexAnswerBox);
+                                                    TextBoxDataChanging.textBoxClear(MainBotexView.myInputTextBox);
+                                                }
+                                                isAskedForAts = true;
+                                            }
+                                            else
+                                            {
+
+                                                if(isAskedForTweeterActionType ==3)
+                                                {
+                                                    tweetmodel.Content = input;
+                                                    isTweetCompleted = true;
+                                                }
+                                                if(isAskedForTweeterGroup == false)
+                                                {
+                                                    tweetmodel.Group = input;
+                                                    if(isAskedForTweeterActionType == 2)
+                                                    {
+                                                        isTweetCompleted = true;
+                                                    }
+
+                                                    isAskedForTweeterGroup = true;
+                                                }
+                                                else
+                                                {
+                                                    if(isAskedForTweeterContent == false)
+                                                    {
+                                                        tweetmodel.Content = input;
+                                                        isAskedForTweeterContent = true;
+                                                        isTweetCompleted = true;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            twitterVM.setTweeterLogData(ck, cks, at, ats);
+
+                            if (isAskedForTweeterActionType == 3)
+                            {
+                                twitterVM.SendTweet(tweetmodel.Content);
+                            }
+                            if (isAskedForTweeterActionType == 2)
+                            {
+                                twitterVM.sendTweetFromDb(tweetmodel.Group);
+                            }
+                            if(isAskedForTweeterActionType ==1)
+                            {
+                                twitterVM.saveTweetToDb(userId, tweetmodel.Content, tweetmodel.Group);
+                            }
+                        }
+                        break;
+
+                    #endregion
 
                 }
             }

@@ -309,14 +309,17 @@ namespace Botex.scripts
                             if (IsMailCompleted ==1)
                             {
                                 mailvm.saveMailToDb(userId, mailModel.Title, mailModel.Content, mailModel.Group);
+                                return true;
                             }
                             if(IsMailCompleted ==2)
                             {
                                 mailvm.sendMailFromDb(user + userId.ToString(), passwd, fromUserMail, toUserMail, mailModel.Title, mailModel.Group);
+                                return true;
                             }
                             if(IsMailCompleted ==3)
                             {
                                 mailvm.sendMail(user + userId.ToString(), passwd, fromUserMail, toUserMail, mailModel.Title, mailModel.Content);
+                                return true;
                             }
                         }
                         break;
@@ -426,14 +429,17 @@ namespace Botex.scripts
                             if (isAskedForTweeterActionType == 3)
                             {
                                 twitterVM.SendTweet(tweetmodel.Content);
+                                return true;
                             }
                             if (isAskedForTweeterActionType == 2)
                             {
                                 twitterVM.sendTweetFromDb(tweetmodel.Group);
+                                return true;
                             }
                             if(isAskedForTweeterActionType ==1)
                             {
                                 twitterVM.saveTweetToDb(userId, tweetmodel.Content, tweetmodel.Group);
+                                return true;
                             }
                         }
                         break;

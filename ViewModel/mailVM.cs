@@ -32,7 +32,7 @@ namespace Botex.ViewModel
             RichTextBoxDataChanging.changeTextRichAnswerBox(welcomeMsg, targetRichTextBox);
         }
 
-        public void saveMailToDb(string userId, string subject, string body, string group)
+        public void saveMailToDb(int userId, string subject, string body, string group)
         {
             ToDbControl.ToDbMail(userId, subject, body, group);
         }

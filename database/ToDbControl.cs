@@ -49,7 +49,7 @@ namespace Botex.database
             dbControl.ReadDataFromDB(myDbQuery, botexAnswerBox);
         }
 
-        public static void ToDbMail(string userId, string subject, string body, string group)
+        public static void ToDbMail(int userId, string subject, string body, string group)
         {
             //Potem dodać tu uprawnienia - tylko admin moze zapisać
             if(group == "")
@@ -71,11 +71,11 @@ namespace Botex.database
             {
                 group = "Bez Grupy";
             }
-            string myDbQuery = $"INSERT INTO tweeter(content, grup) VALUES('{content}','{group}')";
+            string myDbQuery = $"INSERT INTO tweeter(content, group) VALUES('{content}','{group}')";
             dbControl.insertDataToDB(myDbQuery);
         }
 
-        public static TweetModel FromDbTweet(string content, string group)
+        public static TweetModel FromDbTweet(string group)
         {
             string myDbQuery = $"SELECT idTweet,content,group FROM mail WHERE group LIKE '{group}' LIMIT 1";
             return dbControl.GetTweetModelFromDb(myDbQuery);
